@@ -130,3 +130,7 @@ Set a 4-digit PIN: 1234
 ## 📄 License
 
 Free to use and modify for learning purposes.
+
+---
+
+⭐ **If you love this project, please give it a star and share your feedback!** ⭐
