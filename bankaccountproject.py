@@ -1,26 +1,4 @@
-"""
-================================================================
-BANK ACCOUNT SIMULATOR - FINAL VERSION
-================================================================
-Full-featured interactive bank system.
 
-Features:
-- Create accounts (Savings / Current) with PIN protection
-- Deposit, Withdraw, Transfer (PIN required for withdraw/transfer)
-- Search account by owner name
-- View one account / view all accounts
-- Delete (close) an account
-- Apply interest to all accounts
-- Export a transaction statement to a .txt file
-- Auto save/load data as JSON (data survives between runs)
-- Proper input validation everywhere - won't crash on bad input
-
-Concepts used: OOP, inheritance, custom exceptions, decorators,
-magic methods, classmethod/staticmethod, file handling, type hints.
-
-Run with: python bank_account_simulator_final.py
-================================================================
-"""
 
 from __future__ import annotations
 import json
