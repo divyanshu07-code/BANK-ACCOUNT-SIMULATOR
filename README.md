@@ -44,7 +44,6 @@ This project showcases several core and intermediate Python programming concepts
 ### Current Account
 - **No interest**
 - Comes with an **overdraft limit** (default ₹1000), allowing the balance to go negative up to that limit
-
 ---
 
 ## 🚀 Getting Started
