@@ -1,3 +1,9 @@
+"""
+Legacy single-file version of Bank Account Simulator.
+For the new modular version with testing, enhanced features, and colorized CLI:
+    python -m bank_simulator
+"""
+
 from __future__ import annotations
 import json
 import os

@@ -1,0 +1,2 @@
+# Bank Account Simulator — Requirements
+# No external dependencies needed; this project uses the Python standard library only.

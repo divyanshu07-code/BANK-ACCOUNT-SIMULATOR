@@ -1,135 +1,203 @@
+<div align="center">
+
 # 🏦 Bank Account Simulator
 
-A full-featured, interactive command-line bank management system built in Python. This project simulates real-world banking operations — account creation, deposits, withdrawals, transfers, interest calculation, and statement generation — all backed by persistent JSON storage.
+**A feature-rich, interactive command-line banking system built in Python**
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Tests](https://github.com/divyanshu07-code/BANK-ACCOUNT-SIMULATOR/actions/workflows/tests.yml/badge.svg)](https://github.com/divyanshu07-code/BANK-ACCOUNT-SIMULATOR/actions)
+
+[Features](#-features) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [Account Types](#-account-types) • [Contributing](#contributing)
+
+</div>
 
 ---
 
 ## ✨ Features
 
-- **Create Accounts** — Open a Savings or Current account with owner name, opening balance, and a 4-digit PIN
-- **Deposit / Withdraw** — PIN-protected withdrawals with account-specific rules
-- **Transfer Funds** — Move money between accounts securely (PIN required)
-- **Search Accounts** — Find accounts by (partial) owner name
-- **View Accounts** — Inspect a single account's details and transaction history, or list all accounts
-- **Close Accounts** — Permanently delete an account (PIN + confirmation required)
-- **Interest Application** — Apply interest across all accounts in one click
-- **Statement Export** — Generate a `.txt` transaction statement for any account
-- **Auto Save/Load** — All data is stored in `bank_data.json` and automatically reloaded on startup
-- **Robust Input Validation** — Handles invalid input gracefully without crashing
+- 🏦 **Account Creation** — Open Savings or Current accounts with unique IDs
+- 🔐 **PIN-Secured Operations** — All sensitive operations protected by SHA-256 hashed PINs
+- 💰 **Deposits & Withdrawals** — Real-time balance updates with validation
+- 🔄 **Fund Transfers** — Seamlessly transfer money between accounts
+- 📈 **Interest Calculation** — Automatic interest computation for Savings accounts (4% annual rate)
+- 📜 **Transaction History** — Timestamped log of every transaction with detailed metadata
+- 📄 **Account Statements** — Generate and export formatted account statements to text files
+- 🎨 **Colorized CLI** — Beautiful, color-coded terminal interface for enhanced readability
+- 💾 **JSON Persistence** — Automatic save/load of all account data to `bank_data.json`
+- 📊 **Dashboard View** — At-a-glance summary of account details and recent activity
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/divyanshu07-code/BANK-ACCOUNT-SIMULATOR.git
+cd BANK-ACCOUNT-SIMULATOR
+```
+
+### 2. Run the Application
+
+**Modular package (recommended):**
+
+```bash
+python -m bank_simulator.cli
+```
+
+**Legacy single-file version:**
+
+```bash
+python bankaccountproject.py
+```
+
+> **Note:** Python 3.10 or higher is required. No external dependencies needed — the project uses only the Python standard library.
+
+---
+
+## 🏗️ Architecture
+
+The project follows a clean, modular architecture with separation of concerns:
+
+```
+BANK-ACCOUNT-SIMULATOR/
+├── bank_simulator/               # Core package
+│   ├── __init__.py               # Package metadata & exports
+│   ├── exceptions.py             # Custom exception classes
+│   ├── decorators.py             # Transaction logging decorator
+│   ├── models/                   # Account model layer
+│   │   ├── __init__.py           # Models package init
+│   │   ├── account.py            # Base Account class (ABC)
+│   │   ├── savings.py            # SavingsAccount (4% interest, min balance)
+│   │   └── current.py            # CurrentAccount (overdraft facility)
+│   ├── bank.py                   # Bank manager & JSON file persistence
+│   ├── utils.py                  # CLI helpers & colorized output
+│   └── cli.py                    # Interactive menu system & entry point
+├── tests/                        # Unit test suite
+│   ├── test_account.py           # Base account tests
+│   ├── test_savings.py           # Savings account tests
+│   ├── test_current.py           # Current account tests
+│   ├── test_bank.py              # Bank manager tests
+│   └── test_utils.py             # Utility function tests
+├── bankaccountproject.py         # Legacy single-file version
+├── setup.py                      # Package installation config
+├── requirements.txt              # Project dependencies
+├── CONTRIBUTING.md               # Contribution guidelines
+├── LICENSE                       # MIT License
+└── README.md                     # You are here!
+```
+
+---
+
+## 💳 Account Types
+
+| Feature            | 🏦 Savings Account          | 🏢 Current Account           |
+| ------------------ | --------------------------- | ----------------------------- |
+| **Interest Rate**  | 4% per annum                | None                          |
+| **Min Balance**    | ₹500                       | None                          |
+| **Overdraft**      | ❌ Not available            | ✅ Up to ₹10,000             |
+| **Best For**       | Personal savings & interest | Business & frequent transactions |
 
 ---
 
 ## 🧠 Concepts Demonstrated
 
-This project showcases several core and intermediate Python programming concepts:
+This project showcases a wide range of Python programming concepts:
 
-| Concept | Where it's used |
-|---|---|
-| **Inheritance & Polymorphism** | `SavingsAccount` and `CurrentAccount` extend `Account`, each overriding `withdraw()` with custom rules |
-| **Custom Exceptions** | `InsufficientFundsError`, `InvalidAmountError`, `AccountNotFoundError`, `InvalidPinError` |
-| **Decorators** | `@log_transaction` automatically logs the outcome of every deposit/withdrawal |
-| **Magic Methods** | `__str__`, `__repr__`, `__eq__`, `__len__` for readable and comparable account objects |
-| **Classmethods & Staticmethods** | `Account.total_accounts_created()`, `Account.is_valid_amount()` |
-| **File Handling & Persistence** | JSON-based save/load system so data survives between runs |
-| **Type Hints** | Used throughout for clarity and safety |
-
----
-
-## 🏛️ Account Types
-
-### Savings Account
-- Earns **4% interest**
-- Enforces a **minimum balance of ₹500** — withdrawals that would drop below this are rejected
-
-### Current Account
-- **No interest**
-- Comes with an **overdraft limit** (default ₹1000), allowing the balance to go negative up to that limit
----
-
-## 🚀 Getting Started
-
-### Requirements
-- Python 3.10+ (uses `from __future__ import annotations` and modern type hints)
-
-### Run the Program
-```bash
-python bank_account_simulator_final.py
-```
-
-On first run, a `bank_data.json` file will be created automatically to persist your data. On subsequent runs, existing accounts will be loaded automatically.
+| Concept                    | Implementation                                         |
+| -------------------------- | ------------------------------------------------------ |
+| **OOP & Inheritance**      | Base `Account` class with `SavingsAccount` / `CurrentAccount` subclasses |
+| **Abstract Base Classes**  | `ABC` and `@abstractmethod` for enforcing interfaces   |
+| **Encapsulation**          | Private attributes with property accessors              |
+| **Polymorphism**           | Overridden `withdraw()` and `account_type` methods      |
+| **Decorators**             | `@log_transaction` for automatic transaction logging    |
+| **Exception Handling**     | Custom exceptions (`InsufficientFundsError`, etc.)      |
+| **PIN Hashing (SHA-256)**  | Secure PIN storage using `hashlib.sha256`               |
+| **Logging Module**         | Python `logging` for application-level event tracking   |
+| **Datetime Handling**      | Timestamped transactions with `datetime` module         |
+| **Enums / Constants**      | Clean constant definitions for configuration values     |
+| **File I/O**               | JSON serialization for persistent data storage          |
+| **Type Hints**             | Full type annotations across all modules                |
+| **Unit Testing**           | Comprehensive test suite with `unittest`                |
+| **CI/CD**                  | GitHub Actions workflow for automated testing           |
 
 ---
 
 ## 📋 Menu Options
 
 ```
- 1. Create new account
- 2. Deposit money
- 3. Withdraw money (PIN required)
- 4. Transfer between accounts (PIN required)
- 5. View one account
- 6. View all accounts
- 7. Search account by owner name
- 8. Close (delete) an account
- 9. Apply interest to all accounts
-10. Export account statement to file
-11. Save data now
-12. Exit (auto-saves)
+╔══════════════════════════════════════════╗
+║         🏦  BANK ACCOUNT MENU  🏦       ║
+╠══════════════════════════════════════════╣
+║  1.  Create Account                     ║
+║  2.  Deposit                            ║
+║  3.  Withdraw                           ║
+║  4.  Check Balance                      ║
+║  5.  Transfer Funds                     ║
+║  6.  Transaction History                ║
+║  7.  Account Statement                  ║
+║  8.  Calculate Interest                 ║
+║  9.  List All Accounts                  ║
+║  10. Close Account                      ║
+║  11. Change PIN                         ║
+║  12. Account Dashboard                  ║
+║  13. Save & Load Data                   ║
+║  14. Exit                               ║
+╚══════════════════════════════════════════╝
 ```
 
 ---
 
-## 📁 Project Structure
+## 🔒 Security
 
+- **PIN Hashing** — PINs are never stored in plain text. All PINs are hashed using SHA-256 before storage, ensuring that even if the data file is accessed, PINs remain protected.
+- **PIN Verification** — Each sensitive operation requires PIN verification by comparing the hash of the entered PIN against the stored hash.
+
+> ⚠️ **Disclaimer:** This project is built for **educational purposes**. It demonstrates security concepts but is not intended for use in production financial systems.
+
+---
+
+## 🧪 Running Tests
+
+Run the complete test suite:
+
+```bash
+python -m unittest discover tests/
 ```
-.
-├── bank_account_simulator_final.py   # Main program
-├── bank_data.json                    # Auto-generated data file (created on first run)
-└── statement_<ACCOUNT_ID>.txt        # Generated when exporting a statement
+
+Run a specific test file:
+
+```bash
+python -m unittest tests.test_account
+python -m unittest tests.test_savings
+python -m unittest tests.test_bank
+```
+
+Run with verbose output:
+
+```bash
+python -m unittest discover tests/ -v
 ```
 
 ---
 
-## 💡 Example Usage
+## 🤝 Contributing
 
-```
-Welcome to Divyanshu National Bank
-
-=============================================
- BANK MENU
-=============================================
- 1. Create new account
- ...
-=============================================
-Enter your choice (1-12): 1
-Enter owner name: Priya Sharma
-Account type - (s)avings or (c)urrent? s
-Enter opening balance: ₹1000
-Set a 4-digit PIN: 1234
-  Account created: [ACC1000] Priya Sharma (SavingsAccount) | Balance: ₹1000.00
-```
-
----
-
-## 🔒 Security Notes
-
-- PINs are required for withdrawals, transfers, and account closure
-- PINs are stored in plain text in the JSON data file — **this is a simulation project only** and is **not suitable for real financial use** without proper encryption and security hardening
-
----
-
-## 📌 Notes & Limitations
-
-- This is an educational/demo project meant to practice OOP, exception handling, decorators, and file I/O in Python
-- Data is stored unencrypted in a local JSON file
-- Designed for single-user, single-session command-line use (not a networked or multi-user system)
+Contributions are welcome! Please read the [Contributing Guide](CONTRIBUTING.md) for details on the process for submitting pull requests.
 
 ---
 
 ## 📄 License
 
-Free to use and modify for learning purposes.
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-⭐ **If you love this project, please give it a star and share your feedback!** ⭐
+<div align="center">
+
+**If you found this project helpful, please consider giving it a ⭐!**
+
+Made with ❤️ by [Divyanshu](https://github.com/divyanshu07-code)
+
+</div>
