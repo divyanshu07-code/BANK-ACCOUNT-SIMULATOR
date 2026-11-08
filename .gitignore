@@ -24,7 +24,23 @@ env/
 .DS_Store
 Thumbs.db
 
-# Project specific
+# Secrets, Environment & Credentials
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+*.crt
+credentials*.json
+client_secret*.json
+token*.json
+secrets/
+private/
+
+# Project data & exports
 bank_data.json
 statement_*.txt
 *.log
+*.sqlite3
+*.db
